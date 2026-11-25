@@ -5,18 +5,18 @@ struct TitanShiftRootView: View {
     @State private var lastDragX: CGFloat? = nil
 
     var body: some View {
-        GeometryReader { geo in
-            let screenWidth = max(1, geo.size.width)
-            let snap = viewModel.snapshot
-            let lang = viewModel.profile.language
+        let snap = viewModel.snapshot
+        let lang = viewModel.profile.language
 
-            ZStack {
-                // 1. Live 60fps SceneKit 3D Viewport
-                TitanSceneView(viewModel: viewModel)
-                    .ignoresSafeArea()
+        ZStack {
+            // 1. Live 60fps SceneKit 3D Viewport (edge-to-edge full screen)
+            TitanSceneView(viewModel: viewModel)
+                .ignoresSafeArea(.all)
 
-                // 2. Full-screen One-Finger Drag Gesture during Gameplay
-                if snap.phase == .running || snap.phase == .goalGauntlet || snap.phase == .bossClash {
+            // 2. Full-screen One-Finger Drag Gesture during Gameplay
+            if snap.phase == .running || snap.phase == .goalGauntlet || snap.phase == .bossClash {
+                GeometryReader { geo in
+                    let screenWidth = max(1, geo.size.width)
                     Color.clear
                         .contentShape(Rectangle())
                         .gesture(
@@ -37,37 +37,41 @@ struct TitanShiftRootView: View {
                                 }
                         )
                 }
+                .ignoresSafeArea(.all)
+            }
 
-                // 3. Phase-Specific Overlays
-                switch snap.phase {
-                case .home:
-                    HomeOverlayView(viewModel: viewModel)
-                case .running, .goalGauntlet, .bossClash:
-                    VStack {
-                        Spacer()
-                        BottomMorphSliderDock(viewModel: viewModel)
-                    }
-                case .stageClear:
-                    StageClearModalView(viewModel: viewModel)
-                case .gameOver:
-                    GameOverModalView(viewModel: viewModel)
-                }
-
-                // 4. Top Header HUD & Callouts (rendered above overlays so buttons stay clickable)
+            // 3. Phase-Specific Overlays
+            switch snap.phase {
+            case .home:
+                HomeOverlayView(viewModel: viewModel)
+            case .running, .goalGauntlet, .bossClash:
                 VStack {
-                    TopBarHUD(viewModel: viewModel)
-                    FloatingCalloutOverlay(snap: snap, lang: lang)
-                        .allowsHitTesting(false)
                     Spacer()
+                    BottomMorphSliderDock(viewModel: viewModel)
                 }
+            case .stageClear:
+                StageClearModalView(viewModel: viewModel)
+            case .gameOver:
+                GameOverModalView(viewModel: viewModel)
+            }
 
-                // 5. 3D Skin Wardrobe Sheet
-                if viewModel.showSkinWardrobe {
-                    SkinWardrobeOverlay(viewModel: viewModel)
-                        .transition(.opacity)
-                }
+            // 4. Top Header HUD & Callouts (rendered above overlays so buttons stay clickable)
+            VStack {
+                TopBarHUD(viewModel: viewModel)
+                FloatingCalloutOverlay(snap: snap, lang: lang)
+                    .allowsHitTesting(false)
+                Spacer()
+            }
+
+            // 5. 3D Skin Wardrobe Sheet
+            if viewModel.showSkinWardrobe {
+                SkinWardrobeOverlay(viewModel: viewModel)
+                    .transition(.opacity)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.05, green: 0.09, blue: 0.20).ignoresSafeArea(.all))
+        .statusBarHidden(true)
         .preferredColorScheme(.dark)
     }
 }
@@ -81,7 +85,7 @@ private struct TopBarHUD: View {
         let lang = profile.language
 
         VStack(spacing: 8) {
-            HStack {
+            HStack(spacing: 6) {
                 // Coin Pill
                 HStack(spacing: 6) {
                     Circle()
@@ -90,17 +94,19 @@ private struct TopBarHUD: View {
                     let displayCoins = (snap.phase == .running || snap.phase == .goalGauntlet)
                         ? (profile.coins + snap.stageCoins)
                         : profile.coins
-                    Text("\(displayCoins)")
+                    Text(String(displayCoins))
                         .font(.system(size: 16, weight: .heavy, design: .rounded))
                         .foregroundColor(Color(red: 1.0, green: 0.88, blue: 0.50))
+                        .lineLimit(1)
                 }
-                .padding(.horizontal, 14)
-                .padding(.vertical, 7)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
                 .background(Color(red: 0.05, green: 0.09, blue: 0.19).opacity(0.85))
                 .clipShape(Capsule())
                 .overlay(Capsule().stroke(Color.yellow.opacity(0.4), lineWidth: 1))
+                .fixedSize(horizontal: true, vertical: false)
 
-                Spacer()
+                Spacer(minLength: 4)
 
                 // Stage Badge
                 let stageText: String = {
@@ -114,13 +120,15 @@ private struct TopBarHUD: View {
                 Text(stageText)
                     .font(.system(size: 14, weight: .black, design: .rounded))
                     .foregroundColor(.white)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 7)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.70)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
                     .background((snap.isBossStage ? Color.pink.opacity(0.75) : Color(red: 0.06, green: 0.13, blue: 0.28).opacity(0.85)))
                     .clipShape(Capsule())
                     .overlay(Capsule().stroke(Color.cyan.opacity(0.45), lineWidth: 1))
 
-                Spacer()
+                Spacer(minLength: 4)
 
                 // Language + Sound + Haptics
                 HStack(spacing: 6) {
@@ -128,6 +136,7 @@ private struct TopBarHUD: View {
                         Text(lang.rawValue)
                             .font(.system(size: 12, weight: .bold))
                             .foregroundColor(.cyan)
+                            .lineLimit(1)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 6)
                             .background(Color.black.opacity(0.55))
@@ -152,6 +161,7 @@ private struct TopBarHUD: View {
                             .clipShape(Circle())
                     }
                 }
+                .fixedSize(horizontal: true, vertical: false)
             }
 
             if snap.phase == .running || snap.phase == .goalGauntlet {
@@ -250,11 +260,17 @@ private struct HomeOverlayView: View {
                     .font(.system(size: 30, weight: .black, design: .rounded))
                     .foregroundColor(.white)
                     .tracking(1.5)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                 Text(lang == .vi ? "Biến Hình Khổng Lồ & Tí Hon • Vượt Mọi Chướng Ngại" : "Real-Time Size Morph Runner")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.cyan)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
             }
             .padding(.top, 58)
+            .padding(.horizontal, 16)
 
             Spacer()
 
@@ -290,13 +306,17 @@ private struct HomeOverlayView: View {
                                     .font(.system(size: 12, weight: .bold))
                                     .foregroundColor(.white)
                                     .lineLimit(1)
+                                    .minimumScaleFactor(0.72)
                                 Text(type.subtitle(level: lvl, lang: lang))
                                     .font(.system(size: 10))
                                     .foregroundColor(.gray)
                                     .lineLimit(1)
+                                    .minimumScaleFactor(0.72)
                                 Text(lang == .vi ? "\(cost) Xu" : "\(cost) Coins")
                                     .font(.system(size: 11, weight: .heavy))
                                     .foregroundColor(canAfford ? .black : .gray)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.75)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 3)
                                     .background(canAfford ? Color.yellow : Color.white.opacity(0.15))
@@ -325,6 +345,8 @@ private struct HomeOverlayView: View {
                             Text(lang == .vi ? "TRANG PHỤC" : "SKINS")
                                 .font(.system(size: 15, weight: .bold))
                                 .foregroundColor(.white)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.75)
                         }
                         .frame(height: 56)
                         .padding(.horizontal, 18)
@@ -337,6 +359,8 @@ private struct HomeOverlayView: View {
                             Image(systemName: "play.fill")
                             Text(lang == .vi ? "BẮT ĐẦU CHẠY" : "START RUN")
                                 .font(.system(size: 18, weight: .black, design: .rounded))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.75)
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)

@@ -12,6 +12,8 @@ struct TitanSceneView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> SCNView {
         let scnView = SCNView(frame: .zero)
+        scnView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scnView.contentMode = .scaleToFill
         scnView.scene = context.coordinator.scene
         scnView.pointOfView = context.coordinator.cameraNode
         scnView.antialiasingMode = .multisampling4X

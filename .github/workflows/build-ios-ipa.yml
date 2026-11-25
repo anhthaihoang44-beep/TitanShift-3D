@@ -26,6 +26,8 @@ jobs:
             brew install xcodegen
           fi
           (cd ios-swift && xcodegen generate)
+          plutil -lint ios-swift/TitanShift/Info.plist
+          /usr/libexec/PlistBuddy -c "Print :UILaunchScreen" ios-swift/TitanShift/Info.plist
 
       - name: Run Native Swift Unit Tests
         run: |
@@ -65,6 +67,7 @@ jobs:
           cp -R ios-swift/DerivedData/Build/Products/Release-iphoneos/TitanShift.app ipa_build/Payload/TitanShift.app
           test -f ipa_build/Payload/TitanShift.app/Info.plist
           test -f ipa_build/Payload/TitanShift.app/TitanShift
+          /usr/libexec/PlistBuddy -c "Print :UILaunchScreen" ipa_build/Payload/TitanShift.app/Info.plist
           (cd ipa_build && zip -qr ../TitanShift-Sideloadly.ipa Payload)
           ls -lh TitanShift-Sideloadly.ipa
 
