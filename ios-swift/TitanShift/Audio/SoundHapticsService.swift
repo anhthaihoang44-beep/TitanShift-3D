@@ -132,17 +132,17 @@ final class SoundHapticsService {
         var data = Data(capacity: 44 + dataByteCount)
 
         data.append(contentsOf: "RIFF".utf8)
-        data.append(littleEndianBytes(riffChunkSize))
+        data.append(contentsOf: littleEndianBytes(riffChunkSize))
         data.append(contentsOf: "WAVEfmt ".utf8)
-        data.append(littleEndianBytes(UInt32(16))) // PCM chunk size
-        data.append(littleEndianBytes(UInt16(1)))  // AudioFormat = 1 (PCM)
-        data.append(littleEndianBytes(UInt16(1)))  // Channels = 1 (Mono)
-        data.append(littleEndianBytes(UInt32(sampleRate)))
-        data.append(littleEndianBytes(UInt32(sampleRate * 2))) // ByteRate
-        data.append(littleEndianBytes(UInt16(2)))  // BlockAlign
-        data.append(littleEndianBytes(UInt16(16))) // BitsPerSample
+        data.append(contentsOf: littleEndianBytes(UInt32(16))) // PCM chunk size
+        data.append(contentsOf: littleEndianBytes(UInt16(1)))  // AudioFormat = 1 (PCM)
+        data.append(contentsOf: littleEndianBytes(UInt16(1)))  // Channels = 1 (Mono)
+        data.append(contentsOf: littleEndianBytes(UInt32(sampleRate)))
+        data.append(contentsOf: littleEndianBytes(UInt32(sampleRate * 2))) // ByteRate
+        data.append(contentsOf: littleEndianBytes(UInt16(2)))  // BlockAlign
+        data.append(contentsOf: littleEndianBytes(UInt16(16))) // BitsPerSample
         data.append(contentsOf: "data".utf8)
-        data.append(littleEndianBytes(UInt32(dataByteCount)))
+        data.append(contentsOf: littleEndianBytes(UInt32(dataByteCount)))
 
         samples.withUnsafeBytes { rawBuf in
             if let base = rawBuf.baseAddress {
