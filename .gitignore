@@ -1,0 +1,13 @@
+# Build artifacts & local machine files
+android-kotlin/.gradle/
+android-kotlin/build/
+android-kotlin/app/build/
+android-kotlin/local.properties
+android-kotlin/.idea/
+*.apk
+*.ipa
+*.xcuserstate
+xcuserdata/
+DerivedData/
+.DS_Store
+Thumbs.db

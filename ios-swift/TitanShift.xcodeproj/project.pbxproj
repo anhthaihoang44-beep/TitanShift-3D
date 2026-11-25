@@ -1,0 +1,301 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000012900000100000001 /* TitanShiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000012900000100000001 /* TitanShiftApp.swift */; };
+		A10000022900000100000001 /* GameModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000022900000100000001 /* GameModels.swift */; };
+		A10000032900000100000001 /* PlayerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000032900000100000001 /* PlayerStorage.swift */; };
+		A10000042900000100000001 /* StageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000042900000100000001 /* StageGenerator.swift */; };
+		A10000052900000100000001 /* SoundHapticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000052900000100000001 /* SoundHapticsService.swift */; };
+		A10000062900000100000001 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000062900000100000001 /* GameViewModel.swift */; };
+		A10000072900000100000001 /* TitanSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000072900000100000001 /* TitanSceneView.swift */; };
+		A10000082900000100000001 /* TitanShiftRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000082900000100000001 /* TitanShiftRootView.swift */; };
+		A10000092900000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000092900000100000001 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000002900000100000001 /* TitanShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TitanShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000012900000100000001 /* TitanShiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitanShiftApp.swift; sourceTree = "<group>"; };
+		A20000022900000100000001 /* GameModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModels.swift; sourceTree = "<group>"; };
+		A20000032900000100000001 /* PlayerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStorage.swift; sourceTree = "<group>"; };
+		A20000042900000100000001 /* StageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageGenerator.swift; sourceTree = "<group>"; };
+		A20000052900000100000001 /* SoundHapticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundHapticsService.swift; sourceTree = "<group>"; };
+		A20000062900000100000001 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		A20000072900000100000001 /* TitanSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitanSceneView.swift; sourceTree = "<group>"; };
+		A20000082900000100000001 /* TitanShiftRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitanShiftRootView.swift; sourceTree = "<group>"; };
+		A20000092900000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A200000A2900000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000012900000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000002900000100000001 = {
+			isa = PBXGroup;
+			children = (
+				A40000012900000100000001 /* TitanShift */,
+				A40000082900000100000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000012900000100000001 /* TitanShift */ = {
+			isa = PBXGroup;
+			children = (
+				A20000012900000100000001 /* TitanShiftApp.swift */,
+				A40000022900000100000001 /* Models */,
+				A40000032900000100000001 /* Data */,
+				A40000042900000100000001 /* Engine */,
+				A40000052900000100000001 /* Audio */,
+				A40000062900000100000001 /* Scene3D */,
+				A40000072900000100000001 /* Views */,
+				A20000092900000100000001 /* Assets.xcassets */,
+				A200000A2900000100000001 /* Info.plist */,
+			);
+			path = TitanShift;
+			sourceTree = "<group>";
+		};
+		A40000022900000100000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A20000022900000100000001 /* GameModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A40000032900000100000001 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A20000032900000100000001 /* PlayerStorage.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		A40000042900000100000001 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				A20000042900000100000001 /* StageGenerator.swift */,
+				A20000062900000100000001 /* GameViewModel.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		A40000052900000100000001 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				A20000052900000100000001 /* SoundHapticsService.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		A40000062900000100000001 /* Scene3D */ = {
+			isa = PBXGroup;
+			children = (
+				A20000072900000100000001 /* TitanSceneView.swift */,
+			);
+			path = Scene3D;
+			sourceTree = "<group>";
+		};
+		A40000072900000100000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A20000082900000100000001 /* TitanShiftRootView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A40000082900000100000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000002900000100000001 /* TitanShift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000012900000100000001 /* TitanShift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000022900000100000001 /* Build configuration list for PBXNativeTarget "TitanShift" */;
+			buildPhases = (
+				A60000012900000100000001 /* Sources */,
+				A30000012900000100000001 /* Frameworks */,
+				A70000012900000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TitanShift;
+			productName = TitanShift;
+			productReference = A20000002900000100000001 /* TitanShift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000012900000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+			};
+			buildConfigurationList = A80000012900000100000001 /* Build configuration list for PBXProject "TitanShift" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				vi,
+				Base,
+			);
+			mainGroup = A40000002900000100000001;
+			productRefGroup = A40000082900000100000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000012900000100000001 /* TitanShift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A70000012900000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000092900000100000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A60000012900000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000012900000100000001 /* TitanShiftApp.swift in Sources */,
+				A10000022900000100000001 /* GameModels.swift in Sources */,
+				A10000032900000100000001 /* PlayerStorage.swift in Sources */,
+				A10000042900000100000001 /* StageGenerator.swift in Sources */,
+				A10000052900000100000001 /* SoundHapticsService.swift in Sources */,
+				A10000062900000100000001 /* GameViewModel.swift in Sources */,
+				A10000072900000100000001 /* TitanSceneView.swift in Sources */,
+				A10000082900000100000001 /* TitanShiftRootView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A90000012900000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A90000022900000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A90000032900000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TitanShift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.titanshift.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A90000042900000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TitanShift/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.titanshift.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000012900000100000001 /* Build configuration list for PBXProject "TitanShift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A90000012900000100000001 /* Debug */,
+				A90000022900000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000022900000100000001 /* Build configuration list for PBXNativeTarget "TitanShift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A90000032900000100000001 /* Debug */,
+				A90000042900000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000012900000100000001 /* Project object */;
+}

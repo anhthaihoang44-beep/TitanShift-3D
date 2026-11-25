@@ -1,0 +1,40 @@
+name: TitanShift
+options:
+  bundleIdPrefix: com.titanshift
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+targets:
+  TitanShift:
+    type: application
+    platform: iOS
+    sources:
+      - path: TitanShift
+        excludes:
+          - Info.plist
+    info:
+      path: TitanShift/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.titanshift.ios
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "1.0.0"
+    scheme:
+      testTargets:
+        - TitanShiftTests
+  TitanShiftTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: TitanShiftTests
+    dependencies:
+      - target: TitanShift
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES

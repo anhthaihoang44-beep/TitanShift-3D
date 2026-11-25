@@ -1,0 +1,89 @@
+name: Build Native Swift iOS IPA (Sideloadly)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-native-ios-ipa:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Xcode & install XcodeGen
+        run: |
+          xcodebuild -version
+          xcodebuild -showsdks
+          plutil -lint ios-swift/TitanShift/Info.plist
+          if ! command -v xcodegen >/dev/null 2>&1; then
+            brew install xcodegen
+          fi
+          (cd ios-swift && xcodegen generate)
+
+      - name: Run Native Swift Unit Tests
+        run: |
+          DEST=$(xcrun simctl list devices available iPhone | grep -E 'iPhone 16|iPhone 15|iPhone 14' | grep -v 'SE' | grep -E '\([A-F0-9-]+\)' | head -n 1 | sed -E 's/.*\(([A-F0-9-]+)\).*/\1/')
+          if [ -z "$DEST" ]; then
+            DEST=$(xcrun simctl list devices available iPhone | grep -E '\([A-F0-9-]+\)' | head -n 1 | sed -E 's/.*\(([A-F0-9-]+)\).*/\1/')
+          fi
+          echo "Using Simulator ID: $DEST"
+          xcrun simctl boot "$DEST" || true
+          xcrun simctl bootstatus "$DEST" -b
+          xcodebuild test \
+            -project ios-swift/TitanShift.xcodeproj \
+            -scheme TitanShift \
+            -destination "platform=iOS Simulator,id=$DEST" \
+            -derivedDataPath ios-swift/DerivedDataSim
+
+      - name: Build Native iOS Release App (.app)
+        run: |
+          xcodebuild \
+            -project ios-swift/TitanShift.xcodeproj \
+            -scheme TitanShift \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath ios-swift/DerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM="" \
+            build
+
+      - name: Package Unsigned Native IPA for Sideloadly
+        run: |
+          rm -rf ipa_build TitanShift-Sideloadly.ipa
+          mkdir -p ipa_build/Payload
+          cp -R ios-swift/DerivedData/Build/Products/Release-iphoneos/TitanShift.app ipa_build/Payload/TitanShift.app
+          test -f ipa_build/Payload/TitanShift.app/Info.plist
+          test -f ipa_build/Payload/TitanShift.app/TitanShift
+          (cd ipa_build && zip -qr ../TitanShift-Sideloadly.ipa Payload)
+          ls -lh TitanShift-Sideloadly.ipa
+
+      - name: Upload Native IPA Workflow Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TitanShift-Sideloadly-IPA
+          path: TitanShift-Sideloadly.ipa
+          retention-days: 90
+
+      - name: Publish Native IPA to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="ios-latest"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" TitanShift-Sideloadly.ipa --clobber
+          else
+            gh release create "$TAG" TitanShift-Sideloadly.ipa \
+              --title "TitanShift 3D — Native Swift iOS IPA (Sideloadly)" \
+              --notes "100% Native SwiftUI + SceneKit 3D iOS build (arm64). Sign and sideload via Sideloadly."
+          fi
